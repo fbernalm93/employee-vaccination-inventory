@@ -10,3 +10,5 @@ Este Script al final posee un fichero de inserción del primer Administrador par
 Además el proyecto posee una arquitectura limpia hexagonal, abstrayendo en mini aplicaciones cada una de las funcionalidades del proyecto.
 
 Se puede consultar información de los endpoint realizados en ../swagger-ui/index.html
+
+Existe una coleccion de postman para poder realizar las pruebas desde dicha herramienta como recurso que se adiciona en este repositorio
