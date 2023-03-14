@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
@@ -44,9 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 		.authorizeHttpRequests()
-		.antMatchers(POST,"/user/login/**").permitAll()
-//				.antMatchers(POST, "/person/**").permitAll()
-		.antMatchers(POST,"/personservice/newAdmin/**").permitAll()
+				.antMatchers(GET,"/user/loginsystem/**").permitAll()
+		.antMatchers(POST,"/person/newemployee/**").permitAll()
 		.antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
 		.permitAll()
 		.anyRequest().authenticated();

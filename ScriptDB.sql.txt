@@ -15,35 +15,13 @@ create table person(
    isVaccinated boolean
 );
 
-
 create table userApp(
    username varchar(50) primary key,
    password varchar(100) not null,
 	role varchar(20) not null
 );
 
-
-create table vaccine(
-  id int primary key,
-  name varchar(50) not null
-);
-
-create table vaccineperson(
-  idvaccine int not null,
-  idperson varchar(20) not null,
-  vaccinenumber int not null,
-  vaccinationdate date not null
-);
-ALTER TABLE ONLY vaccineperson ADD CONSTRAINT "PK_VACCINEPERSON" PRIMARY KEY (idvaccine, idperson,vaccinenumber);
-ALTER TABLE vaccineperson ADD CONSTRAINT fk_idvaccine FOREIGN KEY (idvaccine) REFERENCES vaccine (id);
-ALTER TABLE vaccineperson ADD CONSTRAINT fk_idpersonn FOREIGN KEY (idperson) REFERENCES person (id);
-
-insert into vaccine(id, name) values(1, 'Sputnik');
-insert into vaccine(id, name) values(2, 'AstraZeneca');
-insert into vaccine(id, name) values(3, 'Pfizer');
-insert into vaccine(id, name) values(4, 'Jhonson&Jhonson');
-
---Create User Administrator to Test
+--Create User Administrator to Test App
 
 INSERT INTO public.person(
 	id, email, lastname, name)
@@ -51,4 +29,28 @@ INSERT INTO public.person(
 
 INSERT INTO public.user_app(
 	username, password, role)
-	VALUES ('0302195177', '0302195177', 'ADMINISTRATOR');
+	VALUES ('0302195177', '$2a$10$VS4rabQBZ0KRO0AEm5Fo8uB/I8wdepnJZ5IxWooQGEqPz8L/INcia', 'ADMINISTRATOR');
+
+--Create Vaccines Tables
+
+CREATE TABLE vaccine
+(
+    id integer NOT NULL,
+    name character varying(255) COLLATE pg_catalog."default",
+    CONSTRAINT vaccine_pkey PRIMARY KEY (id)
+)
+
+CREATE TABLE vaccine_person
+(
+    id_person character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    id_vaccine integer NOT NULL,
+    vaccine_doses integer NOT NULL,
+    date timestamp without time zone,
+    CONSTRAINT vaccine_person_pkey PRIMARY KEY (id_person, id_vaccine, vaccine_doses)
+)
+
+--Insert Vaccines Values in DB
+INSERT INTO vaccine(id, name) VALUES (1, Sputnik);
+INSERT INTO vaccine(id, name) VALUES (2, AstraZeneca);
+INSERT INTO vaccine(id, name) VALUES (3, Pfizer);
+INSERT INTO vaccine(id, name) VALUES (4, Jhonson&Jhonson);

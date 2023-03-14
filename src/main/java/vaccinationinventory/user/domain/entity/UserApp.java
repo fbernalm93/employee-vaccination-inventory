@@ -18,9 +18,8 @@ public class UserApp {
     @Column(name="username")
     private String username;
     @NotEmpty(message="Field is required")
-    @Column(name="passsword")
+    @Column(name="password")
     private String password;
-    @NotEmpty(message="Field is required")
     @Column(name="role")
     @Enumerated(EnumType.STRING)
     private Role role;

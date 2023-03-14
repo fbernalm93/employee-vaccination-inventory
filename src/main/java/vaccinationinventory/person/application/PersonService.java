@@ -1,6 +1,5 @@
 package vaccinationinventory.person.application;
 
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +12,25 @@ import vaccinationinventory.user.domain.entity.UserApp;
 import vaccinationinventory.user.domain.repository.UserRepositoryInterface;
 import vaccinationinventory.utils.Validations;
 import vaccinationinventory.utils.exceptions.InvalidIdException;
+import vaccinationinventory.utils.exceptions.PersonNotFoundException;
+import vaccinationinventory.vaccine.application.VaccinePersonService;
+import vaccinationinventory.vaccine.application.VaccineService;
+import vaccinationinventory.vaccine.domain.entity.VaccinePerson;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
-public class PersonCrud implements PersonInterface{
+public class PersonService implements PersonInterface{
     @Autowired
     private PersonRepositoryInterface personRepository;
+    @Autowired
     private UserRepositoryInterface userRepository;
+    @Autowired
+    private VaccinePersonService vaccinePersonService;
+    @Autowired
+    private VaccineService vaccineService;
     private Validations validationsUtils;
-    private static Logger LOG = LoggerFactory.getLogger(PersonCrud.class);
+    private static Logger LOG = LoggerFactory.getLogger(PersonService.class);
     private BCryptPasswordEncoder encoder;
     @Override
     public void createEmployee(Person person) throws InvalidIdException {
@@ -49,7 +56,33 @@ public class PersonCrud implements PersonInterface{
         user.setRole(Role.ADMINISTRATOR);
         userRepository.save(user);
     }
-
+    @Override
+    public void updateEmploye(String id, Person person) throws PersonNotFoundException{
+        Person searchPerson = findEmployeeById(id);
+        if (searchPerson != null){
+            searchPerson.copyNotNullData(person);
+            LOG.info("Employee updated");
+            updatePerson(searchPerson);
+        }else {
+            throw new PersonNotFoundException("Employee not found");
+        }
+    }
+    @Override
+    public void updateEmployeVaccines(String id, Person person) throws PersonNotFoundException{
+        Person searchPerson = findEmployeeById(id);
+        if (searchPerson != null){
+            searchPerson.copyNotNullData(person);
+            LOG.info("Employee updated");
+            updatePerson(searchPerson);
+            VaccinePerson vaccinePerson = vaccinePersonService.getVaccinePerson(searchPerson.getId());
+            if(vaccinePerson==null){
+                vaccinePerson = new VaccinePerson(searchPerson.getId(),vaccineService.getVaccine(person.getVaccine().getName()).getId(),person.getVaccine().getVaccineDoses(),person.getVaccine().getDate());
+                vaccinePersonService.saveVaccinePerson(vaccinePerson);
+            }
+        }else {
+            throw new PersonNotFoundException("Employee not found");
+        }
+    }
     @Override
     public void updatePerson(Person person) {
         personRepository.save(person);
@@ -66,8 +99,15 @@ public class PersonCrud implements PersonInterface{
     }
 
     @Override
-    public void deletePerson(String id) {
+    public void deletePerson(String id) throws PersonNotFoundException {
         Person person = personRepository.findById(id).orElse(null);
-        personRepository.delete(person);
+        if (person != null){
+            LOG.info("The Employee deleted");
+            personRepository.delete(person);
+            UserApp user = userRepository.findById(id).orElse(null);
+            userRepository.delete(user);
+        }else {
+            throw new PersonNotFoundException("Employee not found");
+        }
     }
 }

@@ -14,9 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import vaccinationinventory.person.application.PersonCrud;
+import vaccinationinventory.person.application.PersonService;
 import vaccinationinventory.person.domain.entity.Person;
 import vaccinationinventory.utils.exceptions.InvalidIdException;
+import vaccinationinventory.utils.exceptions.PersonNotFoundException;
 
 import javax.validation.Valid;
 
@@ -28,10 +29,10 @@ import static vaccinationinventory.utils.Validations.formatMessage;
 @RequestMapping("/person")
 public class PersonController{
     @Autowired
-    private PersonCrud personService;
+    private PersonService personService;
     private static Logger LOG = LoggerFactory.getLogger(PersonController.class);
     @PostMapping("/newemployee")
-    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
+//    @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @ApiOperation(value = "Create a new person with Employee Role in database and a new user with required fields " +
             "(id, " + "name, lastname,email),created user has username=person id and default password= person id," +
             "(Role administrador required)")
@@ -55,39 +56,42 @@ public class PersonController{
         return response;
     }
 
-    @PostMapping("/updateemployee")
+    @PatchMapping("/updateemployee/{idperson}")
     @ApiOperation(value = "Update person in database. You can change any field like as" +
-            "(address, birthdate, phonenumber, )")
+            "(address, birthdate, phonenumber, name, lastname, all fields or just one)")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Person updated"),
             @ApiResponse(code = 400, message = "Validation error in object")})
-    public ResponseEntity<Boolean> updateEmployee(@Valid @RequestBody Person person) {
+    public ResponseEntity<Boolean> updateEmployee(@PathVariable ("idperson") String idPerson, @RequestBody Person person) {
         LOG.info("Initializing - Update employee create process");
-        Person searchPerson = personService.findEmployeeById(person.getId());
-        if (searchPerson != null){
-            searchPerson.setAddress(person.getAddress());
-            searchPerson.setBirthdate(person.getBirthdate());
-            searchPerson.setPhonenumber(person.getPhonenumber());
-            personService.updatePerson(searchPerson);
-            return new ResponseEntity("Employee updated!", HttpStatus.OK);
-        }else{
-            return new ResponseEntity("Employee not found!", HttpStatus.BAD_REQUEST);
+        ResponseEntity response;
+        try{
+            personService.updateEmploye(idPerson, person);
+            response = new ResponseEntity("Employee updated!", HttpStatus.OK);
+        }catch (PersonNotFoundException e){
+            response = new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }catch (Exception er){
+            response = new ResponseEntity(er.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return response;
     }
 
-    @PostMapping("/deleteemployee")
+    @DeleteMapping("/deleteemployee/{idperson}")
     @ApiOperation(value = "Delete person with Employee Role in database by Id Person )" +
             "(Role administrador required)")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Person deleted"),
             @ApiResponse(code = 400, message = "Validation error in object")})
-    public ResponseEntity<Boolean> deleteEmployee(@Valid @RequestBody Person person) {
+    public ResponseEntity<Boolean> deleteEmployee(@PathVariable ("idperson") String idPerson) {
         LOG.info("Initializing - Delete employee create process");
-        Person searchPerson  = personService.findEmployeeById(person.getId());
-        if (searchPerson!=null){
-            personService.deletePerson(person.getId());
-            return new ResponseEntity("Employee deleted!", HttpStatus.OK);
-        }else{
-            return new ResponseEntity("Id not found", HttpStatus.BAD_REQUEST);
+        ResponseEntity response;
+        try{
+            personService.deletePerson(idPerson);
+            response = new ResponseEntity("Employee deleted!", HttpStatus.OK);
+        }catch (PersonNotFoundException e){
+            response = new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }catch (Exception er){
+            response = new ResponseEntity(er.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return response;
     }
 
     @GetMapping("/listall")
@@ -98,4 +102,27 @@ public class PersonController{
         return new ResponseEntity<>(personService.listAllEmployees(), HttpStatus.OK);
     }
 
+    @PatchMapping("/setvacunas/{idperson}")
+    @ApiOperation(value = "Update person in database. You can change any field like as" +
+            "(address, birthdate, phonenumber, name, lastname, all fields or just one)")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Person updated"),
+            @ApiResponse(code = 400, message = "Validation error in object")})
+    public ResponseEntity<Boolean> updateEmployeeVaccines(@PathVariable ("idperson") String idPerson, @RequestBody Person person) {
+        LOG.info("Initializing - Update employee create process");
+        ResponseEntity response;
+        try{
+            if(person.getIsVaccinated()){
+                personService.updateEmployeVaccines(idPerson,person);
+                response = new ResponseEntity("Employee updated with Vaccines!", HttpStatus.OK);
+            }else {
+                personService.updateEmploye(idPerson, person);
+                response = new ResponseEntity("Employee updated!", HttpStatus.OK);
+            }
+        }catch (PersonNotFoundException e){
+            response = new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }catch (Exception er){
+            response = new ResponseEntity(er.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
 }

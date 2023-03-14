@@ -1,4 +1,4 @@
-package vaccinationinventory.person.documentation;
+package vaccinationinventory.documentation;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
