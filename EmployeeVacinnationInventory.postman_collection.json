@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "12633430-52b0-44f0-82d2-a0c769f4c3c6",
+		"name": "EmployeeVacinnationInventory",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9507221"
+	},
+	"item": [
+		{
+			"name": "NewEmployee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzAyMTk1MTc3IiwiZXhwIjoxNjc4NzE4OTkyLCJpYXQiOjE2Nzg2OTAxOTIsInJvbCI6eyJhdXRob3JpdHkiOiJFTVBMT1lFRSJ9fQ.1ZK5iid3sF2HBxiBV8TgXQRsIMfAyPB14gIALbbIj44",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"0302195177\",\r\n    \"name\":\"Franklin\",\r\n    \"lastName\":\"Bernal\",\r\n    \"email\" : \"fbernalm93@gmail.com\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/person/newemployee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"person",
+						"newemployee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzAyMTk1MTc3IiwiZXhwIjoxNjc4NzE4OTkyLCJpYXQiOjE2Nzg2OTAxOTIsInJvbCI6eyJhdXRob3JpdHkiOiJFTVBMT1lFRSJ9fQ.1ZK5iid3sF2HBxiBV8TgXQRsIMfAyPB14gIALbbIj44",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"0302195177\",\r\n    \"name\":\"Franklin\",\r\n    \"lastName\":\"Bernal\",\r\n    \"email\" : \"fbernalm93@gmail.com\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/person/newemployee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"person",
+						"newemployee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Employee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzAyMTk1MTc3IiwiZXhwIjoxNjc4NzE4OTkyLCJpYXQiOjE2Nzg2OTAxOTIsInJvbCI6eyJhdXRob3JpdHkiOiJFTVBMT1lFRSJ9fQ.1ZK5iid3sF2HBxiBV8TgXQRsIMfAyPB14gIALbbIj44",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"0302195177\",\r\n    \"name\":\"Franklin\",\r\n    \"lastName\":\"Bernal\",\r\n    \"email\" : \"fbernalm93@gmail.com\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/person/newemployee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"person",
+						"newemployee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Vaccine and Update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzAyMTk1MTc3IiwiZXhwIjoxNjc4NzE4OTkyLCJpYXQiOjE2Nzg2OTAxOTIsInJvbCI6eyJhdXRob3JpdHkiOiJFTVBMT1lFRSJ9fQ.1ZK5iid3sF2HBxiBV8TgXQRsIMfAyPB14gIALbbIj44",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"0302195177\",\r\n    \"name\":\"Franklin\",\r\n    \"lastName\":\"Bernal\",\r\n    \"email\" : \"fbernalm93@gmail.com\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/person/newemployee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"person",
+						"newemployee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEmployee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzAyMTk1MTc3IiwiZXhwIjoxNjc4NzE4OTkyLCJpYXQiOjE2Nzg2OTAxOTIsInJvbCI6eyJhdXRob3JpdHkiOiJFTVBMT1lFRSJ9fQ.1ZK5iid3sF2HBxiBV8TgXQRsIMfAyPB14gIALbbIj44",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"0302195177\",\r\n    \"name\":\"Franklin\",\r\n    \"lastName\":\"Bernal\",\r\n    \"email\" : \"fbernalm93@gmail.com\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/person/newemployee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"person",
+						"newemployee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzAyMTk1MTc3IiwiZXhwIjoxNjc4NzE4OTkyLCJpYXQiOjE2Nzg2OTAxOTIsInJvbCI6eyJhdXRob3JpdHkiOiJFTVBMT1lFRSJ9fQ.1ZK5iid3sF2HBxiBV8TgXQRsIMfAyPB14gIALbbIj44",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"0302195177\",\r\n    \"name\":\"Franklin\",\r\n    \"lastName\":\"Bernal\",\r\n    \"email\" : \"fbernalm93@gmail.com\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/person/listAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"person",
+						"listAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"030219517j\",\r\n    \"name\":\"Franklin\",\r\n    \"lastName\":\"Bernal\",\r\n    \"email\" : \"fbernalm93@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/user/newemployee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"user",
+						"newemployee"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

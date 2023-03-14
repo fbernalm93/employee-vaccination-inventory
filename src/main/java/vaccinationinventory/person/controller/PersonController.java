@@ -94,6 +94,21 @@ public class PersonController{
         return response;
     }
 
+    @GetMapping("/getemployee/{idperson}")
+    @ApiOperation(value = "Get person with Employee Role in database by Id Person )" +
+            "(Role administrador required)")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Person deleted"),
+            @ApiResponse(code = 400, message = "Validation error in object")})
+    public ResponseEntity<Person> getEmployee(@PathVariable ("idperson") String idPerson) {
+        LOG.info("Initializing - Delete employee create process");
+        Person searchPerson = personService.findEmployeeById(idPerson);
+        if(searchPerson != null){
+            return new ResponseEntity(searchPerson, HttpStatus.OK);
+        }else {
+            return new ResponseEntity("Person not found", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("/listall")
     @PreAuthorize("hasAuthority('ADMINISTRATOR')")
     @ApiOperation(value = "Get all persons on database - Role administrador required")
